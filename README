@@ -1,1 +1,10 @@
+****************
+* CS361_P3 - Turing Machine Simulator
+* CS361 001
+* Spring 2026
+* Dean Cunningham, Haylee Staub
+****************
 
+## SOURCES
+-https://medium.com/@Emmanuel.A/data-structures-arraylist-efficiency-b5056911f0ae
+Used as a reminder of the runtime cost of arraylists vs linkedlists, which helped me determine what I should be storing values as to minimize runtime knowing that we are going to need to frequently access random indexes while modifying the tape.
