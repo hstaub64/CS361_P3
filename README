@@ -8,3 +8,5 @@
 ## SOURCES
 -https://medium.com/@Emmanuel.A/data-structures-arraylist-efficiency-b5056911f0ae
 Used as a reminder of the runtime cost of arraylists vs linkedlists, which helped me determine what I should be storing values as to minimize runtime knowing that we are going to need to frequently access random indexes while modifying the tape.
+-https://www.reddit.com/r/golang/comments/1hexwxc/debug_a_program_that_takes_args_in_vscode/
+Help with adding command line arguments for debugging.
