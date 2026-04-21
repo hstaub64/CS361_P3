@@ -35,23 +35,22 @@ public class TMTape {
     public void Write(int write, boolean LR){
         //Moving Left
         if (LR == false){
+            tape.set(head, write);
             //Extend the tape if at the start
             if (head == 0) {
-                tape.set(head, write);
                 tape.add(0, 0); //Add a blank   
             } else {
-                tape.set(head, write);
                 head--;
             }
         }
         //Moving Right
         if (LR == true){
-            //Extend the tape if at the end
             tape.set(head, write);
             head++;
+            //Extend the tape if at the end
             if (head == tape.size()){
                 tape.add(0); // Add a blank
-            } 
+            }
         }
     }
 
@@ -77,12 +76,12 @@ public class TMTape {
 
         //The rest of this is for debugging, TODO: remove when its time to pass tests.
         //Add a pointer to the current head position
-        output += "\n";
-        for (int i = 0; i < head; i++) {
-            output += " ";
-        }
-        output += "^";
-        output += "\n Output Length: " + length;
+        // output += "\n";
+        // for (int i = 0; i < head; i++) {
+        //     output += " ";
+        // }
+        // output += "^";
+         output += "\n Output Length: " + length;
         return output;
     }
 }

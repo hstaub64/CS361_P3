@@ -92,7 +92,6 @@ public class TMSimulator {
     }
 
     /**
-     * //TODO
      * TMStep simulates taking one step with the Turing Machine.
      * Returns true if the TM enters the halt state.
      * @return
