@@ -37,11 +37,8 @@ public class TMTape {
         if (LR == false){
             //Extend the tape if at the start
             if (head == 0) {
-                tape.set(0, write);
-                ArrayList<Integer> newTape = new ArrayList<>();
-                newTape.add(0); //Add a blank
-                newTape.addAll(tape);
-                tape = newTape;   
+                tape.set(head, write);
+                tape.add(0, 0); //Add a blank   
             } else {
                 tape.set(head, write);
                 head--;
@@ -50,10 +47,10 @@ public class TMTape {
         //Moving Right
         if (LR == true){
             //Extend the tape if at the end
+            tape.set(head, write);
+            head++;
             if (head == tape.size()){
-                tape.set(head, write);
-                tape.add(0);    //Add a blank
-                head++;
+                tape.add(0); // Add a blank
             } else {
                 tape.set(head, write);
                 head++;

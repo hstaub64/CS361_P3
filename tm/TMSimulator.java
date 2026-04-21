@@ -85,9 +85,9 @@ public class TMSimulator {
         curState = 0;
 
         boolean halted = false;
-        // while (!halted) {
-        //     TMStep();
-        // }
+        while (!halted) {
+            TMStep();
+        }
         return tape.toString();
     }
 
@@ -99,7 +99,17 @@ public class TMSimulator {
      */
     public boolean TMStep(){
         int head = tape.Read();
+        Point key = new Point(curState, head);
+        TMTransition transition = transitions.get(key);
 
-        return false;
+        tape.Write(transition.getWrite(), transition.getLR());
+
+        curState = transition.getToState();
+
+        if (curState == numStates - 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
