@@ -51,10 +51,7 @@ public class TMTape {
             head++;
             if (head == tape.size()){
                 tape.add(0); // Add a blank
-            } else {
-                tape.set(head, write);
-                head++;
-            }
+            } 
         }
     }
 
@@ -71,9 +68,11 @@ public class TMTape {
      */
     public String toString(){
         String output = "";
+        int length = 0;
         //Print the entire tape
         for (int i = 0; i < tape.size(); i++) {
             output += tape.get(i) + "";
+            length++;
         }
 
         //The rest of this is for debugging, TODO: remove when its time to pass tests.
@@ -83,6 +82,7 @@ public class TMTape {
             output += " ";
         }
         output += "^";
+        output += "\n Output Length: " + length;
         return output;
     }
 }

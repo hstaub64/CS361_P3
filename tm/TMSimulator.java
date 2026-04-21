@@ -86,7 +86,7 @@ public class TMSimulator {
 
         boolean halted = false;
         while (!halted) {
-            TMStep();
+            halted = TMStep();
         }
         return tape.toString();
     }
