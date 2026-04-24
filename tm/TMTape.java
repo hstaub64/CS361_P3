@@ -81,7 +81,7 @@ public class TMTape {
         //     output += " ";
         // }
         // output += "^";
-         output += "\n Output Length: " + length;
+        // output += "\n Output Length: " + length;
         return output;
     }
 }
