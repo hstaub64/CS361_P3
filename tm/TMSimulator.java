@@ -21,7 +21,7 @@ public class TMSimulator {
             System.out.println("Incorrect number of arguments.\nPlease run using java tm.TMSimulator [filename]");
             System.exit(1);
         }
-        File file = new File("test_files/" + args[0]);
+        File file = new File(args[0]);
         Scanner scan;
         try {
             scan = new Scanner(file);
