@@ -4,56 +4,76 @@
 * Spring 2026
 * Dean Cunningham, Haylee Staub
 ****************
-## OVERVIEW:
-This project is a Turing Machine implementation in java. It reads a formatted input txt file to instantiate a turing machine complete with a tape and transition table. The input file can include a starting tape, otherwise the starting tape contains a blank.
 
-The turing machine can move left or right on the tape and uses the transition table to read from the tape and move between states. All states have a valid transition for every character in the alphabet of the tape.
+## OVERVIEW:
+This program is an implementation of a Turing Machine in java, where
+the TMSimulator class reads a file containing an encoding of a Turing
+Machine with a Tape string (empty or with a start string) which is
+used to step through the Turing Machine. Each transition in the TM is
+mapped according to the encoding specifications and the simulator steps
+through each state until halted. When halted, it prints out the contents
+of the Tape string.
 
 ## INCLUDED FILES:
-    * TMSimulator.java -- main class, reads an input file and simulates the read TM
-    * TMTape.java -- tape class, used to instantiate tapes to read and write from
-    * TMTransition.java -- transition class, used to instantiate transitions for the TM
+* TMSimulator.java - source file
+* TMTape.java - source file
+* TMTransition.java - source file
+* README - this file
 
 ## COMPILING AND RUNNING:
-From the directory containing all source files, compile the
-driver class (and all dependencies) with the command:
-* $ javac tm/TMSimulator.java
+From the directory containing all source files and files to 
+be passed to simulator, compile the driver class (and all 
+dependencies) with the command:
+* \$ javac TMSimulator.java
 
 Run the compiled class file with the command:
-* $ java tm.TMSimulator [filename]
-where filename is the path to a .txt file formatted to be read by TMSimulator.java
+* \$ java tm.TMSimulator [file name].txt
 
-The program will output the state of the TM's tape at the time of halting.
-
-Formatted .txt file should follow the format:
-Line 1: The number of states
-Line 2: The size of the alphabet (excluding blank)
-Line 3 to n: Transitions using the format (toState, write, move L/R)
-    ex: 1, 1, R - Goes to state 1, writes 1 to the tape, and moves the tape head right.
-Line n (final line): The starting tape, leave blank to make the starting tape blank.
+Console output will give the results after the program finishes.
 
 ## PROGRAM DESIGN AND IMPORTANT CONCEPTS:
-The TMSimulator class is responsible for creating and running a TM. It contains an instance of TMTape and TMTransition, as well as keeping its own HashTable to store transitions. It's runtime is broken into three main parts:
-    1. Validate and load the input file
-    2. Setup the TM by reading the file
-    3. Step through the Turing Machine until it halts
-The turing machine knows how many states it has, the size of its alphabet, all of its transitions, and the contents of the tape. This class also tracks the current state. The class is set up to get more complicated setup done in step 2 so that step 3 can be a simple loop, since that is where most of runtime will be spent.
+The TMSimulator is responsible for reading command line input
+and parsing the file contents to populate the Tape and the
+transitions of the encoded TM. After, it simulates stepping 
+through the TM until the machine halts, where it then prints to
+the console the Tape string.
 
-The TMTape class is the main class responsible for making this a Turing Machine. The tape is an arraylist which can be read from and written to left or right. It populates missing values with blanks.
+The TMTape class contains methods to read the value at the head
+of the string, write at the head, create the staring tape string
+from file input, and print the tape. The tape first checks if it
+will be moving left or right, writes the given value at the head,
+and increases or decrements the head count depending on the movement.
+An ArrayList is used to represent the infinite tape with random indexing
+to allow the tape to shift as needed to make space for newly written
+values.
 
-The TMTransition class holds a transition object, which keeps track of its toState, write, and if it moves the tape left or right. It was written to work with the HashTable in TMSimulator, which uses the fromState and onCharacter as a key to obtain the correct transition. This setup was chosen because of the format of the input files, where the fromState and onCharacter are implied.
+TMTransition contains the methods to parse the input from file for 
+each transition in the TM. Using the format of next state, write character,
+move direction. It also contains methods to get each field from the
+transition.
 
 ## TESTING:
-The main source of testing was using the provided test files (file0,2,5.txt), and comparing our output to the expected output in the project specifications. We also printed out additional info in TMSimulator's output to make sure things like the tape head and output length were matching the expectations, which we later removed so our output would match the grader.
-
-I also wrote an additional test file which I tweaked to try out edge cases, such as a single state TM. This helped me catch a few bugs which weren't apparent using the three provided files.
+The program assumes that all files to be tested are included in the root
+path of the simulator, but it does check the length of the input
+to ensure all fields are included in the command line. It also
+catches file not found exceptions that could occur from bad input.
 
 ## DISCUSSION:
-Initially, I made TMState a class rather than TMTransition, but I realized that the states themselves don't need to contain information here, it seemed more intuitive to just save the state number as a variable since we know the state names are integers and the final state is the highest number. I pivoted to having TMTransition be a class instead. I chose to use an ArrayList for reading the tape, and a HashTable for the transition table. I chose an ArrayList for the tape because it has a get() of O(1), and its worst case is adding to the start of the array, which doesn't happen much in the test files. A goal of mine was to keep the overall structure of this project simple to maximize runtime, so I relied a lot on the known confines of this program's TMs.  If I had more time, I would try to find a more efficient datastructure than ArrayList for the purpose of the tape. --Dean
 
-## SOURCES:
--https://medium.com/@Emmanuel.A/data-structures-arraylist-efficiency-b5056911f0ae
+
+Conceptualizing the machine was the most difficult part for me, as
+I struggled to grasp the logic of the TM as a whole. I was unsure how
+to break the TMSimulator into its parts and be able to simulate stepping 
+through after parsing the file. Thankfully, Dean wrote the main logic
+and the Tape and Transition classes, which I was able to look at for
+guidance for the stepping logic. Debugging was also helpful for understanding
+the logic of the TMSimulator, as I could watch how the tape was being created/
+added to as the program stepped through. After the initial hurdle of understanding all the programs pieces, it was much simpler to fine
+tune the logic and debug the program. -- Haylee
+
+## SOURCES
+* https://medium.com/@Emmanuel.A/data-structures-arraylist-efficiency-b5056911f0ae
 Used as a reminder of the runtime cost of arraylists vs linkedlists, which helped me determine what I should be storing values as to minimize runtime knowing that we are going to need to frequently access random indexes while modifying the tape.
-
--https://www.reddit.com/r/golang/comments/1hexwxc/debug_a_program_that_takes_args_in_vscode/
+* https://www.reddit.com/r/golang/comments/1hexwxc/debug_a_program_that_takes_args_in_vscode/
 Help with adding command line arguments for debugging.
+* Discussions with classmate Amy about formatting of Tape and scanner vs file reader
