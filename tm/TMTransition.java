@@ -1,5 +1,12 @@
 package tm;
 
+/**
+ * TMTransition is the object class for a turing machine's transitions.
+ * Each transition knows it's toState, what it writes, and whether it should move the tape left or right.
+ * The main class will keep track of the fromState and onRead of each transition, since they are used as hashing keys.
+ * @author Dean Cunningham, Haylee Staub
+ * @date Spring 2026
+ */
 public class TMTransition {
 
     private boolean LR; //Determines if you step left or right on transition (0 = Left, 1 = Right)

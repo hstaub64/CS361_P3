@@ -6,6 +6,11 @@ import java.awt.Point;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+/**
+ * TMSimulator is the main class for the TM project. It reads an input file to instantiate and run a turing machine.
+ * @author Dean Cunningham, Haylee Staub
+ * @date Spring 2026
+ */
 public class TMSimulator {
 
     private int numStates;
@@ -14,6 +19,10 @@ public class TMSimulator {
     private int curState;
     private TMTape tape;
 
+    /**
+     * main class, should be called with one argument
+     * @param args (filename)
+     */
     public static void main(String[] args) {
         //Checks for valid args before continuing into Simulation
         TMSimulator simulator = new TMSimulator();
@@ -21,10 +30,12 @@ public class TMSimulator {
             System.out.println("Incorrect number of arguments.\nPlease run using java tm.TMSimulator [filename]");
             System.exit(1);
         }
+        //Read the file from args
         File file = new File(args[0]);
         Scanner scan;
         try {
             scan = new Scanner(file);
+            //Function call to the main file simulation
             String tapeOutput = simulator.SimulateFile(scan);
             System.out.println(tapeOutput);
             scan.close();
@@ -83,6 +94,12 @@ public class TMSimulator {
         
         tape = new TMTape(startString);
         curState = 0;
+
+        //If there's only one state, the machine begins on the halt state.
+        //There will be no valid transitions since the halt state has no transitions.
+        if (numStates == 1) {
+            return tape.toString();
+        }
 
         boolean halted = false;
         while (!halted) {

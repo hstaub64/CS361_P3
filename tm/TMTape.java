@@ -2,6 +2,12 @@ package tm;
 
 import java.util.ArrayList;
 
+/**
+ * TMTape is the object class for a turing machine's tape.
+ * The tape is an arraylist of integers which can be read from and written to.
+ * @author Dean Cunningham, Haylee Staub
+ * @date Spring 2026
+ */
 public class TMTape {
     private ArrayList<Integer> tape;    //See if there's a better list implementation,
                                         //Right now adding to front of list is O(n) which is very slow
