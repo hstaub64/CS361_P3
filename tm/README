@@ -5,8 +5,75 @@
 * Dean Cunningham, Haylee Staub
 ****************
 
+## OVERVIEW:
+This program is an implementation of a Turing Machine in java, where
+the TMSimulator class reads a file containing an encoding of a Turing
+Machine with a Tape string (empty or with a start string) which is
+used to step through the Turing Machine. Each transition in the TM is
+mapped according to the encoding specifications and the simulator steps
+through each state until halted. When halted, it prints out the contents
+of the Tape string.
+
+## INCLUDED FILES:
+* TMSimulator.java - source file
+* TMTape.java - source file
+* TMTransition.java - source file
+* README - this file
+
+## COMPILING AND RUNNING:
+From the directory containing all source files and files to 
+be passed to simulator, compile the driver class (and all 
+dependencies) with the command:
+* \$ javac TMSimulator.java
+
+Run the compiled class file with the command:
+* \$ java tm.TMSimulator [file name].txt
+
+Console output will give the results after the program finishes.
+
+## PROGRAM DESIGN AND IMPORTANT CONCEPTS:
+The TMSimulator is responsible for reading command line input
+and parsing the file contents to populate the Tape and the
+transitions of the encoded TM. After, it simulates stepping 
+through the TM until the machine halts, where it then prints to
+the console the Tape string.
+
+The TMTape class contains methods to read the value at the head
+of the string, write at the head, create the staring tape string
+from file input, and print the tape. The tape first checks if it
+will be moving left or right, writes the given value at the head,
+and increases or decrements the head count depending on the movement.
+An ArrayList is used to represent the infinite tape with random indexing
+to allow the tape to shift as needed to make space for newly written
+values.
+
+TMTransition contains the methods to parse the input from file for 
+each transition in the TM. Using the format of next state, write character,
+move direction. It also contains methods to get each field from the
+transition.
+
+## TESTING:
+The program assumes that all files to be tested are included in the root
+path of the simulator, but it does check the length of the input
+to ensure all fields are included in the command line. It also
+catches file not found exceptions that could occur from bad input.
+
+## DISCUSSION:
+
+
+Conceptualizing the machine was the most difficult part for me, as
+I struggled to grasp the logic of the TM as a whole. I was unsure how
+to break the TMSimulator into its parts and be able to simulate stepping 
+through after parsing the file. Thankfully, Dean wrote the main logic
+and the Tape and Transition classes, which I was able to look at for
+guidance for the stepping logic. Debugging was also helpful for understanding
+the logic of the TMSimulator, as I could watch how the tape was being created/
+added to as the program stepped through. After the initial hurdle of understanding all the programs pieces, it was much simpler to fine
+tune the logic and debug the program.
+
 ## SOURCES
--https://medium.com/@Emmanuel.A/data-structures-arraylist-efficiency-b5056911f0ae
+* https://medium.com/@Emmanuel.A/data-structures-arraylist-efficiency-b5056911f0ae
 Used as a reminder of the runtime cost of arraylists vs linkedlists, which helped me determine what I should be storing values as to minimize runtime knowing that we are going to need to frequently access random indexes while modifying the tape.
--https://www.reddit.com/r/golang/comments/1hexwxc/debug_a_program_that_takes_args_in_vscode/
+* https://www.reddit.com/r/golang/comments/1hexwxc/debug_a_program_that_takes_args_in_vscode/
 Help with adding command line arguments for debugging.
+* Discussions with classmate Amy about formatting of Tape and scanner vs file reader
